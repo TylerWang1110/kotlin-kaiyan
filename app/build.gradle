@@ -1,0 +1,64 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.tyler.app.kotlinkaiyan"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation rootProject.ext.dependencies["supportv4"]
+    implementation rootProject.ext.dependencies["appcompatv7"]
+    implementation rootProject.ext.dependencies["cardview"]
+    implementation rootProject.ext.dependencies["design"]
+    implementation rootProject.ext.dependencies["annotations"]
+
+    implementation rootProject.ext.dependencies["retrofit"]
+    implementation rootProject.ext.dependencies["retrofitConverterGson"]
+    implementation rootProject.ext.dependencies["retrofitAdapterRxjava2"]
+    implementation rootProject.ext.dependencies["okhttp3LoggerInterceptor"]
+
+    implementation rootProject.ext.dependencies["rxJava"]
+    implementation rootProject.ext.dependencies["rxAndroid"]
+
+    implementation rootProject.ext.dependencies["multiple-status-view"]
+    implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
+    implementation rootProject.ext.dependencies["FlycoTabLayout"]
+    implementation rootProject.ext.dependencies["FlycoRoundView"]
+    implementation rootProject.ext.dependencies["realtimeblurview"]
+    implementation rootProject.ext.dependencies["SmartRefreshLayout"]
+    implementation rootProject.ext.dependencies["SmartRefreshHeader"]
+    implementation rootProject.ext.dependencies["glide"]
+    kapt rootProject.ext.dependencies["glide-compiler"]
+    kapt rootProject.ext.dependencies["glide-transformations"]
+//    kapt rootProject.ext.dependencies["gpuimage"]
+
+    implementation rootProject.ext.dependencies["autosize"]
+    implementation rootProject.ext.dependencies["RxPermission"]
+    implementation rootProject.ext.dependencies["logger"]
+}

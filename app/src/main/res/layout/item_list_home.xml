@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="15dp"
+        android:background="@color/base_white"
+        android:paddingTop="10dp"
+        android:paddingRight="15dp">
+
+    <TextView
+            android:id="@+id/tv_item_list_home_title"
+            style="@style/MatchWrap"
+            android:layout_marginBottom="10dp"
+            android:text="我是标题标题"
+            android:textColor="@color/text_color_black"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+        <ImageView
+                android:id="@+id/iv_item_list_home"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/shape_home_list_img"/>
+
+        <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_margin="15dp"
+                android:src="@drawable/ic_daily_label"/>
+
+        <com.flyco.roundview.RoundTextView
+                android:id="@+id/tv_item_list_home_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_margin="8dp"
+                app:rv_isRippleEnable="false"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:text="XX:XX"
+                android:textColor="@color/base_white"
+                android:textSize="10dp"
+                android:textStyle="bold"
+                android:typeface="sans"
+                app:rv_backgroundColor="@color/text_color_black"
+                app:rv_cornerRadius="2dp"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+            style="@style/MatchWrap.Horizontal"
+            android:gravity="center_vertical">
+
+        <FrameLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp">
+
+            <ImageView
+                    android:id="@+id/iv_item_list_home_author_avatar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/shape_home_list_avatar"/>
+
+            <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_gravity="bottom|right"
+                    android:src="@drawable/ic_daily_user_super"/>
+        </FrameLayout>
+
+        <LinearLayout
+                style="@style/MatchWrap.Vertical"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+
+            <TextView
+                    android:id="@+id/tv_item_list_home_video_title"
+                    style="@style/MatchAuto"
+                    android:layout_marginBottom="3dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="XXXXXXXXXXXXXXXXXXXXXXXXXX"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="14dp"
+                    android:textStyle="bold"/>
+
+            <TextView
+                    android:id="@+id/tv_item_list_home_author_name"
+                    style="@style/MatchAuto"
+                    android:layout_marginTop="3dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="XXXXXXXXXXXXXXXXXXXXXXXXXX"
+                    android:textColor="@color/text_color_gray"
+                    android:textSize="11dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

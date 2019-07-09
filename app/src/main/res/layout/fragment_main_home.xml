@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                style="@style/MatchMatch">
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/srl_main_home"
+        style="@style/MatchMatch"
+        android:background="@color/base_white">
+
+        <com.scwang.smartrefresh.header.MaterialHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </com.scwang.smartrefresh.header.MaterialHeader>
+
+        <FrameLayout style="@style/MatchMatch">
+
+            <com.classic.common.MultipleStatusView
+                android:id="@+id/msv_main_home"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_main_home"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="vertical">
+
+                </android.support.v7.widget.RecyclerView>
+            </com.classic.common.MultipleStatusView>
+
+            <android.support.v7.widget.Toolbar
+                android:background="@color/base_white"
+                android:id="@+id/tb_main_home"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base_title_bar_height"
+                app:contentInsetStart="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
+
+                    <TextView
+                        android:id="@+id/tv_main_home_title"
+                        style="@style/AutoWrap"
+                        android:text="- XXX.XX -"
+                        android:textColor="@color/text_color_black"
+                        android:textSize="20dp"
+                        android:textStyle="bold"/>
+
+                    <ImageView
+                        android:id="@+id/iv_main_home_search"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:transitionName="transition_reveal"
+                        android:src="@drawable/ic_title_search"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.Toolbar>
+        </FrameLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</RelativeLayout>

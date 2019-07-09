@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/MatchMatch"
+                android:background="@color/colorPrimary">
+
+    <ImageView
+            android:id="@+id/iv_splash_bg"
+            style="@style/MatchMatch"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_splash"/>
+
+    <ImageView
+            android:id="@+id/iv_splash_app_logo"
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="200dp"
+            android:src="@drawable/ic_logo_white"/>
+
+    <TextView
+            android:id="@+id/tv_splash_app_ver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_splash_app_logo"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/base_white"
+            android:textSize="15dp"/>
+
+    <TextView
+            android:id="@+id/tv_splash_slogan_en"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_splash_slogan_ch"
+            android:layout_centerHorizontal="true"
+            android:text="Daily appetizers for your eyes, Bon eyepetit"
+            android:textColor="@color/base_white"
+            android:textSize="14dp"/>
+
+    <TextView
+            android:id="@+id/tv_splash_slogan_ch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="20dp"
+            android:text="每日精选视频推介,让你大开眼界"
+            android:textColor="@color/base_white"
+            android:textSize="14dp"/>
+</RelativeLayout>
