@@ -21,6 +21,7 @@ class MainHomePresenter : BasePresenter<MainHomeContract.View>(), MainHomeContra
      * 第一页数据
      */
     override fun requestFirstData(num: Int) {
+        checkViewAttach()
         val disposable = mHomeModel.requestDailyFirstData(num)
                 .flatMap { homeBean ->
                     val itemList = homeBean.issueList[0].itemList
@@ -40,14 +41,18 @@ class MainHomePresenter : BasePresenter<MainHomeContract.View>(), MainHomeContra
                         setFirstData(homeBean)
                     }
                 }, {
-                    mView?.apply { showError(ExceptionHandler.handException(it)) }
+                    mView?.apply {
+                        dismissLoadding()
+                        showError(ExceptionHandler.handException(it))
+                    }
                 })
 
         addSubscription(disposable)
     }
 
     override fun requestNextData() {
-        mNextPageUrl.let {
+        checkViewAttach()
+        val disposable = mNextPageUrl.let {
             mHomeModel.requestDailyNextData(it)
                     .subscribe({ homeBeam ->
                         mView?.apply {
@@ -59,10 +64,13 @@ class MainHomePresenter : BasePresenter<MainHomeContract.View>(), MainHomeContra
                         }
                     }, {
                         mView?.apply {
+                            dismissLoadding()
                             loadMoreFail()
                             showError(ExceptionHandler.handException(it))
                         }
                     })
         }
+
+        addSubscription(disposable)
     }
 }

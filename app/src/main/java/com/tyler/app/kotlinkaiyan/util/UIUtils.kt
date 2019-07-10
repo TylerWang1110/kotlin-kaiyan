@@ -42,8 +42,4 @@ class UIUtils {
             }
         }
     }
-
-    fun runOnUiThread(){
-
-    }
 }

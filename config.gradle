@@ -39,6 +39,8 @@ ext {
             "FlycoRoundView"               : "com.flyco.roundview:FlycoRoundView_Lib:1.1.4@aar",
             //模糊控件
             "realtimeblurview"             : "com.github.mmin18:realtimeblurview:1.2.1",
+            "flowlayout"                   : "com.hyman:flowlayout-lib:1.1.2",
+
             //屏幕适配
             "autosize"                     : "me.jessyan:autosize:1.1.2",
             "SmartRefreshLayout"           : "com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-30",
@@ -54,7 +56,9 @@ ext {
             //其他框架
             //RxPermission
             "RxPermission"                 : "com.github.tbruyelle:rxpermissions:0.10.2",
-            "logger"                       : "com.orhanobut:logger:2.2.0"
+            "logger"                       : "com.orhanobut:logger:2.2.0",
+            //chrome 管理内部存储 sp 数据库
+            "stetho"                       : "com.facebook.stetho:stetho:1.5.1"
     ]
 
     libs = dependencies.values()

@@ -53,6 +53,8 @@ dependencies {
     implementation rootProject.ext.dependencies["realtimeblurview"]
     implementation rootProject.ext.dependencies["SmartRefreshLayout"]
     implementation rootProject.ext.dependencies["SmartRefreshHeader"]
+    implementation rootProject.ext.dependencies["flowlayout"]
+
     implementation rootProject.ext.dependencies["glide"]
     kapt rootProject.ext.dependencies["glide-compiler"]
     kapt rootProject.ext.dependencies["glide-transformations"]
@@ -61,4 +63,5 @@ dependencies {
     implementation rootProject.ext.dependencies["autosize"]
     implementation rootProject.ext.dependencies["RxPermission"]
     implementation rootProject.ext.dependencies["logger"]
+    implementation rootProject.ext.dependencies["stetho"]
 }

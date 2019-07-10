@@ -12,6 +12,13 @@
         style="@style/MatchWrap"
         android:layout_marginBottom="@dimen/main_tab_height"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="@dimen/main_tab_height"
+        android:background="@color/list_dividingLine"/>
+
     <com.flyco.tablayout.CommonTabLayout
         android:id="@+id/ctl_main"
         android:layout_width="match_parent"

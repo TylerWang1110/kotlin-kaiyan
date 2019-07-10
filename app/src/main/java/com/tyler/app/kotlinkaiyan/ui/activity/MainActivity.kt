@@ -12,7 +12,7 @@ import com.tyler.app.kotlinkaiyan.ui.fragment.MainHomeFragment
 import com.tyler.app.kotlinkaiyan.ui.fragment.MainHotFragment
 import com.tyler.app.kotlinkaiyan.ui.fragment.MainMineFragment
 import com.tyler.app.kotlinkaiyan.util.Constant
-import com.tyler.app.kotlinkaiyan.util.StatusBarUtil
+import com.tyler.app.kotlinkaiyan.util.StatusBarUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -70,8 +70,8 @@ class MainActivity : BaseActivity() {
 
     override fun initView() {
         //设置状态栏透明
-        StatusBarUtil.darkMode(this)
-        StatusBarUtil.setPaddingSmart(this, fl_main)
+        StatusBarUtils.darkMode(this)
+        StatusBarUtils.setPaddingSmart(this, fl_main)
 
         //设置底部tab菜单
         val tabEntityList = ArrayList<CustomTabEntity>()

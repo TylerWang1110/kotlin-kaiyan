@@ -3,9 +3,9 @@ package com.tyler.app.kotlinkaiyan
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import com.facebook.stetho.Stetho
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
-import com.orhanobut.logger.PrettyFormatStrategy
 
 /**
  * @创建者  Tyler Wang.
@@ -27,13 +27,9 @@ class BaseApp : Application() {
     }
 
     private fun init() {
+        //chrome 调试
+        Stetho.initializeWithDefaults(this)
         //初始化logger
-        val format = PrettyFormatStrategy.newBuilder()
-            .showThreadInfo(false)
-            .methodCount(2)
-            .methodOffset(7)
-            .tag("Kotlin_Kaiyan")
-            .build()
         Logger.addLogAdapter(object : AndroidLogAdapter() {
             override fun isLoggable(priority: Int, tag: String?): Boolean {
                 return BuildConfig.DEBUG

@@ -2,8 +2,6 @@ package com.tyler.app.kotlinkaiyan.ui.fragment
 
 import android.content.Intent
 import android.graphics.Typeface
-import android.os.Build
-import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -16,7 +14,7 @@ import com.tyler.app.kotlinkaiyan.mvp.presenter.MainHomePresenter
 import com.tyler.app.kotlinkaiyan.showToast
 import com.tyler.app.kotlinkaiyan.ui.activity.SearchActivity
 import com.tyler.app.kotlinkaiyan.ui.adapter.HomeListAdapter
-import com.tyler.app.kotlinkaiyan.util.DateUtil
+import com.tyler.app.kotlinkaiyan.util.DateUtils
 import com.tyler.app.kotlinkaiyan.view.RecyclerViewDivider
 import kotlinx.android.synthetic.main.fragment_main_home.*
 import java.text.SimpleDateFormat
@@ -34,7 +32,7 @@ class MainHomeFragment : BaseFragment(), MainHomeContract.View {
     private var mIsRefresh = true
     var mAdapter: HomeListAdapter? = null
 
-    val mTypefaceTitle: Typeface
+    private val mTypefaceTitle: Typeface
 
     init {
         mTypefaceTitle = Typeface.createFromAsset(BaseApp.context.assets, "fonts/Lobster-1.4.otf")
@@ -59,7 +57,8 @@ class MainHomeFragment : BaseFragment(), MainHomeContract.View {
         mPresenter.attachView(this)
         //重新设置toolbar高度
         tv_main_home_title.typeface = mTypefaceTitle
-        tv_main_home_title.text = DateUtil.formatDate(System.currentTimeMillis(), SimpleDateFormat("- MMM. dd -", Locale.ENGLISH))
+        tv_main_home_title.text =
+            DateUtils.formatDate(System.currentTimeMillis(), SimpleDateFormat("- MMM. dd -", Locale.ENGLISH))
         srl_main_home.setPrimaryColorsId(R.color.base_black)
         srl_main_home.setOnRefreshListener {
             mIsRefresh = true
@@ -70,19 +69,19 @@ class MainHomeFragment : BaseFragment(), MainHomeContract.View {
         mAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
             showToast(position.toString())
         }
-        mAdapter?.setOnLoadMoreListener {
+        mAdapter?.setOnLoadMoreListener({
             mIsRefresh = false
             mPresenter.requestNextData()
-        }
+        }, rv_main_home)
         rv_main_home.adapter = mAdapter
         rv_main_home.layoutManager = mLayoutManger
         rv_main_home.addItemDecoration(
-                RecyclerViewDivider(
-                        context,
-                        LinearLayoutManager.HORIZONTAL,
-                        1,
-                        resources.getColor(R.color.list_dividingLine)
-                )
+            RecyclerViewDivider(
+                context,
+                LinearLayoutManager.HORIZONTAL,
+                1,
+                resources.getColor(R.color.list_dividingLine)
+            )
         )
         rv_main_home.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -91,24 +90,15 @@ class MainHomeFragment : BaseFragment(), MainHomeContract.View {
                 if (mAdapter?.data!!.size > 1) {
                     val itemList = mAdapter!!.data
                     val item = itemList[firstVisibleItemPosition]
-                    tv_main_home_title.text = DateUtil.formatDate(item.data.date, SimpleDateFormat("- MMM. dd -", Locale.ENGLISH))
+                    tv_main_home_title.text =
+                        DateUtils.formatDate(item.data.date, SimpleDateFormat("- MMM. dd -", Locale.ENGLISH))
                 }
             }
         })
 
-        iv_main_home_search.setOnClickListener { go2SearchActivity() }
+        iv_main_home_search.setOnClickListener { startActivity(Intent(activity, SearchActivity::class.java)) }
     }
 
-    private fun go2SearchActivity() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val options = activity?.let {
-                ActivityOptionsCompat.makeSceneTransitionAnimation(it, iv_main_home_search, iv_main_home_search.transitionName)
-            }
-            startActivity(Intent(activity, SearchActivity::class.java), options?.toBundle())
-        } else {
-            startActivity(Intent(activity, SearchActivity::class.java))
-        }
-    }
 
     override fun start() {
         mPresenter.requestFirstData(mNum)

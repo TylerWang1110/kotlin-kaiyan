@@ -25,11 +25,19 @@ open class BasePresenter<V : IView> : IPresenter<V> {
         }
     }
 
+    fun checkViewAttach() {
+        if (mView == null) {
+            throw  ViewNotAttachExpetion()
+        }
+    }
+
     /**
      * 添加订阅
      */
     fun addSubscription(disposable: Disposable) {
         compositeDisposable.add(disposable)
     }
+
+    private class ViewNotAttachExpetion : RuntimeException("Please call IPresenter.attachView(IBaseView) before" + " requesting data to the IPresenter")
 
 }

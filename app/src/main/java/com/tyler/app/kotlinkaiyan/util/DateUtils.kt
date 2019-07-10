@@ -9,7 +9,7 @@ import java.util.*
  * @创建时间  2019/7/8  14:01.
  * @描述  ${日期处理工具类}.
  */
-class DateUtil {
+class DateUtils {
     companion object {
 
         /**

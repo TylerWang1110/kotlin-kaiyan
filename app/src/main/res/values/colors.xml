@@ -16,6 +16,7 @@
 
     <color name="text_color_black">#303030</color>
     <color name="text_color_gray">#636363</color>
+    <color name="text_color_blue">#03A9F4</color>
 
     <color name="list_dividingLine">#F4F4F4</color>
     <color name="img_color_holder">#F4F4F4</color>

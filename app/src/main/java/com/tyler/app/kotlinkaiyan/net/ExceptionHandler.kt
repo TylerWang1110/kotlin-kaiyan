@@ -16,6 +16,7 @@ import java.text.ParseException
  */
 class ExceptionHandler {
     companion object {
+        private val TAG = "ExceptionHandler"
         var mErrorCode = ErrorCode.ERROE_UNKNOWN
         var mErrorMsg = "请求失败,请稍后重试"
 
@@ -37,7 +38,7 @@ class ExceptionHandler {
                 mErrorCode = ErrorCode.ERROE_UNKNOWN
                 mErrorMsg = "未知错误"
             }
-            e.message?.let { Logger.e(it) }
+            e.message?.let { Logger.e(TAG, it) }
             return mErrorMsg
         }
     }

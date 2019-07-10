@@ -13,10 +13,12 @@ data class HomeBean(
 ) {
     data class Issue(
         var count: Int,
+        var total: Int,
         var date: Long,
         var publishTime: Long,
         var releaseTime: Long,
         var type: String,
+        var nextPageUrl: String,
         var itemList: ArrayList<Item>
     ) {
         data class Item(
@@ -28,7 +30,7 @@ data class HomeBean(
         ) {
             data class Data(
                 var ad: Boolean,
-                var author: Author,
+                var author: Author?,
                 var category: String,
                 var dataType: String,
                 var cover: Cover,

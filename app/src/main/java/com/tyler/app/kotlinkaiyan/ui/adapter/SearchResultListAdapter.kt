@@ -19,40 +19,29 @@ import java.util.*
 /**
  * @创建者  Tyler Wang.
  * @创建时间  2019/7/8  11:27.
- * @描述  ${首页列表}.
+ * @描述  ${搜索结果列表}.
  */
-class HomeListAdapter :
+class SearchResultListAdapter :
     BaseQuickAdapter<HomeBean.Issue.Item, BaseViewHolder>(R.layout.item_list_home, ArrayList<HomeBean.Issue.Item>()) {
 
     var mTypeface: Typeface? = null
-    var mTypefaceTitle: Typeface? = null
 
     init {
         mTypeface = Typeface.createFromAsset(BaseApp.context.assets, "fonts/FZLanTingHeiS-L-GB-Regular.TTF")
-        mTypefaceTitle = Typeface.createFromAsset(BaseApp.context.assets, "fonts/Lobster-1.4.otf")
     }
 
     override fun convert(helper: BaseViewHolder?, item: HomeBean.Issue.Item?) {
-        val position: Int = helper?.adapterPosition ?: 0
-        val showTitle: Boolean
-        if (position == 0) {
-            showTitle = true
-        } else {
-            val lastItem = data.get(position - 1)
-            showTitle = lastItem.data.date != item?.data?.date
-        }
         helper!!.setText(
             R.id.tv_item_list_home_title,
             DateUtils.formatDate(item?.data?.date!!, SimpleDateFormat("- MMM. dd -", Locale.ENGLISH))
         )
-            .setGone(R.id.tv_item_list_home_title, showTitle)
-            .setTypeface(R.id.tv_item_list_home_title, mTypefaceTitle)
+            .setGone(R.id.tv_item_list_home_title, false)
             .setText(R.id.tv_item_list_home_duration, DateUtils.getVideoDuration(item.data.duration))
             .setText(R.id.tv_item_list_home_video_title, item.data.title)
             .setText(
                 R.id.tv_item_list_home_author_name,
                 item.data.author?.let { it.name + "  /  #" + item.data.category }
-                    ?: { "  /  #" + item.data.category }.toString()
+                    ?: { "#" + item.data.category }.toString()
             )
             .setTypeface(R.id.tv_item_list_home_author_name, mTypeface)
 

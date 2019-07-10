@@ -5,7 +5,6 @@ import com.tyler.app.kotlinkaiyan.net.api.ApiService
 import com.tyler.app.kotlinkaiyan.net.api.UrlConfig
 import okhttp3.Cache
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -35,16 +34,14 @@ object RetrofitManager {
     }
 
     private fun getOkHttpClient(): OkHttpClient {
-        //log拦截器
-        var interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
+
         //设置 请求的缓存的大小跟位置
         val cacheFile = File(BaseApp.context.cacheDir, "cache")
         val cache = Cache(cacheFile, 1024 * 1024 * 50) //50Mb 缓存的大小
         return OkHttpClient.Builder()
             //可设置公共参数
 //            .addInterceptor(addQueryParameterInterceptor())
-            .addInterceptor(interceptor)//日志
+            .addInterceptor(LogInterceptor())//日志
             .cache(cache)
             .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
             .readTimeout(TIME_OUT, TimeUnit.SECONDS)

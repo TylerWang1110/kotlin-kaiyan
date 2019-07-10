@@ -19,7 +19,7 @@ import java.util.regex.Pattern
  * 状态栏透明
  */
 
-class StatusBarUtil {
+class StatusBarUtils {
 
 
     companion object {

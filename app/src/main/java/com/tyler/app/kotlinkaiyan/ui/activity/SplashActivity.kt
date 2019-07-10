@@ -9,7 +9,7 @@ import android.view.animation.AnimationUtils
 import com.tyler.app.kotlinkaiyan.BaseApp
 import com.tyler.app.kotlinkaiyan.R
 import com.tyler.app.kotlinkaiyan.base.BaseActivity
-import com.tyler.app.kotlinkaiyan.util.StatusBarUtil
+import com.tyler.app.kotlinkaiyan.util.StatusBarUtils
 import com.tyler.app.kotlinkaiyan.util.SysUtils
 import com.tyler.app.kotlinkaiyan.util.UIUtils
 import kotlinx.android.synthetic.main.activity_splash.*
@@ -49,7 +49,7 @@ class SplashActivity : BaseActivity() {
     @SuppressLint("SetTextI18n")
     override fun initView() {
         //设置状态栏透明
-        StatusBarUtil.darkMode(this)
+        StatusBarUtils.darkMode(this)
         tv_splash_slogan_ch.typeface = mTextTypeFaceCh
         tv_splash_slogan_en.typeface = mTextTypeFaceEn
         tv_splash_app_ver.text = "v " + SysUtils.getAppVerName()
