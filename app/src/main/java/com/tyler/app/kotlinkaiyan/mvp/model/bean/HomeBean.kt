@@ -18,7 +18,7 @@ data class HomeBean(
         var publishTime: Long,
         var releaseTime: Long,
         var type: String,
-        var nextPageUrl: String,
+        var nextPageUrl: String?,
         var itemList: ArrayList<Item>
     ) {
         data class Item(
@@ -39,7 +39,9 @@ data class HomeBean(
                 var descriptionEditor: String,
                 var descriptionPgc: String,
                 var duration: Int,
+                var header: Header,
                 var id: Int,
+                var itemList: ArrayList<HomeBean.Issue.Item>,
                 var playInfo: ArrayList<PlayInfo>,
                 var playUrl: String,
                 var played: Boolean,
@@ -55,7 +57,8 @@ data class HomeBean(
                 data class Author(
                     var description: String,
                     var icon: String,
-                    var name: String
+                    var name: String,
+                    var ifPgc: Boolean
                 )
 
                 data class Cover(
@@ -63,6 +66,14 @@ data class HomeBean(
                     var detail: String,
                     var feed: String,
                     var homepage: String
+                )
+
+                data class Header(
+                    var description: String,
+                    var icon: String,
+                    var title: String,
+                    var id: Int,
+                    var ifPgc: Boolean
                 )
 
                 data class PlayInfo(

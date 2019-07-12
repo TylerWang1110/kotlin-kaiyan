@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="discovery" />
-</RelativeLayout>
+    <com.flyco.tablayout.SlidingTabLayout
+        android:id="@+id/stl_main_discovery"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_title_bar_height"
+        android:background="@color/base_white"
+        tl:tl_indicator_color="@color/main_tab_text_select"
+        tl:tl_indicator_height="4dp"
+        tl:tl_indicator_width="30dp"
+        tl:tl_tab_space_equal="true"
+        tl:tl_textSelectColor="@color/main_tab_text_select"
+        tl:tl_textUnselectColor="@color/main_tab_text_unselect"
+        tl:tl_textsize="11dp"
+        tl:tl_underline_color="@color/list_dividingLine"
+        tl:tl_underline_height="1px">
+    </com.flyco.tablayout.SlidingTabLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_main_discovery"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+</LinearLayout>

@@ -27,21 +27,15 @@ import java.util.*
  */
 class MainHomeFragment : BaseFragment(), MainHomeContract.View {
 
-    private val mPresenter by lazy { MainHomePresenter() }
     private var mNum: Int = 1
     private var mIsRefresh = true
-    var mAdapter: HomeListAdapter? = null
 
-    private val mTypefaceTitle: Typeface
-
-    init {
-        mTypefaceTitle = Typeface.createFromAsset(BaseApp.context.assets, "fonts/Lobster-1.4.otf")
-    }
-
+    private val mPresenter by lazy { MainHomePresenter() }
+    private val mAdapter by lazy { HomeListAdapter() }
+    private val mTypefaceTitle by lazy { Typeface.createFromAsset(BaseApp.context.assets, "fonts/Lobster-1.4.otf") }
     val mLayoutManger: RecyclerView.LayoutManager by lazy {
         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
     }
-
 
     companion object {
         fun getInstance(): MainHomeFragment {
@@ -59,17 +53,16 @@ class MainHomeFragment : BaseFragment(), MainHomeContract.View {
         tv_main_home_title.typeface = mTypefaceTitle
         tv_main_home_title.text =
             DateUtils.formatDate(System.currentTimeMillis(), SimpleDateFormat("- MMM. dd -", Locale.ENGLISH))
-        srl_main_home.setPrimaryColorsId(R.color.base_black)
+        mh_main_home.setColorSchemeResources(R.color.text_color_black)
         srl_main_home.setOnRefreshListener {
             mIsRefresh = true
             start()
         }
-        mAdapter = HomeListAdapter()
-        mAdapter?.setPreLoadNumber(2)
-        mAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+        mAdapter.setPreLoadNumber(2)
+        mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
             showToast(position.toString())
         }
-        mAdapter?.setOnLoadMoreListener({
+        mAdapter.setOnLoadMoreListener({
             mIsRefresh = false
             mPresenter.requestNextData()
         }, rv_main_home)
@@ -87,8 +80,8 @@ class MainHomeFragment : BaseFragment(), MainHomeContract.View {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val firstVisibleItemPosition = (mLayoutManger as LinearLayoutManager).findFirstVisibleItemPosition()
-                if (mAdapter?.data!!.size > 1) {
-                    val itemList = mAdapter!!.data
+                if (mAdapter.data.size > 1) {
+                    val itemList = mAdapter.data
                     val item = itemList[firstVisibleItemPosition]
                     tv_main_home_title.text =
                         DateUtils.formatDate(item.data.date, SimpleDateFormat("- MMM. dd -", Locale.ENGLISH))
@@ -106,17 +99,21 @@ class MainHomeFragment : BaseFragment(), MainHomeContract.View {
 
     override fun setFirstData(homeBean: HomeBean) {
         msv_main_home.showContent()
-        mAdapter?.setNewData(homeBean.issueList[0].itemList)
-        mAdapter?.notifyDataSetChanged()
+        mAdapter.setNewData(homeBean.issueList[0].itemList)
+        mAdapter.notifyDataSetChanged()
     }
 
     override fun setNextData(itemList: ArrayList<HomeBean.Issue.Item>) {
-        mAdapter?.addData(itemList)
-        mAdapter?.loadMoreComplete()
+        mAdapter.addData(itemList)
+        mAdapter.loadMoreComplete()
     }
 
     override fun loadMoreFail() {
-        mAdapter?.loadMoreFail()
+        mAdapter.loadMoreFail()
+    }
+
+    override fun loadMoreEnd() {
+        mAdapter.loadMoreEnd()
     }
 
     override fun showError(msg: String) {

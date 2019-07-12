@@ -49,6 +49,7 @@ abstract class BaseFragment : Fragment() {
         //当前界面对用户显示 && view已初始化 && 数据未加载过
         if (userVisibleHint && mIsViewCreate && !mHasLoadData) {
             start()
+            mHasLoadData = true
         }
     }
 

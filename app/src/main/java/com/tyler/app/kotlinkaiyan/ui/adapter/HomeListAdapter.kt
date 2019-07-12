@@ -22,7 +22,7 @@ import java.util.*
  * @描述  ${首页列表}.
  */
 class HomeListAdapter :
-    BaseQuickAdapter<HomeBean.Issue.Item, BaseViewHolder>(R.layout.item_list_home, ArrayList<HomeBean.Issue.Item>()) {
+        BaseQuickAdapter<HomeBean.Issue.Item, BaseViewHolder>(R.layout.item_list_home, ArrayList<HomeBean.Issue.Item>()) {
 
     var mTypeface: Typeface? = null
     var mTypefaceTitle: Typeface? = null
@@ -38,39 +38,48 @@ class HomeListAdapter :
         if (position == 0) {
             showTitle = true
         } else {
-            val lastItem = data.get(position - 1)
+            val lastItem = data[position - 1]
             showTitle = lastItem.data.date != item?.data?.date
         }
-        helper!!.setText(
-            R.id.tv_item_list_home_title,
-            DateUtils.formatDate(item?.data?.date!!, SimpleDateFormat("- MMM. dd -", Locale.ENGLISH))
+        helper?.setText(
+                R.id.tv_item_list_home_title,
+                DateUtils.formatDate(item?.data?.date!!, SimpleDateFormat("- MMM. dd -", Locale.ENGLISH))
         )
-            .setGone(R.id.tv_item_list_home_title, showTitle)
-            .setTypeface(R.id.tv_item_list_home_title, mTypefaceTitle)
-            .setText(R.id.tv_item_list_home_duration, DateUtils.getVideoDuration(item.data.duration))
-            .setText(R.id.tv_item_list_home_video_title, item.data.title)
-            .setText(
-                R.id.tv_item_list_home_author_name,
-                item.data.author?.let { it.name + "  /  #" + item.data.category }
-                    ?: { "  /  #" + item.data.category }.toString()
-            )
-            .setTypeface(R.id.tv_item_list_home_author_name, mTypeface)
+                ?.setGone(R.id.tv_item_list_home_title, showTitle)
+                ?.setTypeface(R.id.tv_item_list_home_title, mTypefaceTitle)
+                ?.setText(R.id.tv_item_list_home_duration, DateUtils.getVideoDuration(item.data.duration))
+                ?.setText(R.id.tv_item_list_home_video_title, item.data.title)
+                ?.setText(
+                        R.id.tv_item_list_home_author_name,
+                        item.data.author?.let { it.name + "  /  #" + item.data.category }
+                                ?: { "  /  #" + item.data.category }.toString()
+                )
+                ?.setTypeface(R.id.tv_item_list_home_author_name, mTypeface)
 
+        if (item?.data?.author == null) {
+            helper?.setGone(R.id.iv_item_list_home_author_avatar_tag, false)
+        } else {
+            helper?.setGone(R.id.iv_item_list_home_author_avatar_tag, item.data.author!!.ifPgc)
+        }
 
-        val ivAvatar: ImageView = helper.getView(R.id.iv_item_list_home_author_avatar)
-        val ivImg: ImageView = helper.getView(R.id.iv_item_list_home)
-        Glide.with(mContext)
-            .load(item.data.author?.icon)
-            .placeholder(R.drawable.shape_home_list_avatar)
-            .error(R.drawable.shape_home_list_avatar)
-            .transform(RoundedCorners(mContext.dp2px(20f)))
-            .into(ivAvatar)
-        Glide.with(mContext)
-            .load(item.data.cover.feed)
-            .placeholder(R.drawable.shape_home_list_img)
-            .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(mContext.dp2px(5f))))
-            .error(R.drawable.shape_home_list_img)
-            .into(ivImg)
+        val ivAvatar: ImageView? = helper?.getView(R.id.iv_item_list_home_author_avatar)
+        val ivImg: ImageView? = helper?.getView(R.id.iv_item_list_home)
+        if (ivAvatar != null) {
+            Glide.with(mContext)
+                    .load(item?.data?.author?.icon)
+                    .placeholder(R.drawable.shape_home_list_avatar)
+                    .error(R.drawable.shape_home_list_avatar)
+                    .transform(RoundedCorners(mContext.dp2px(20f)))
+                    .into(ivAvatar)
+        }
+        if (ivImg != null) {
+            Glide.with(mContext)
+                    .load(item?.data?.cover?.feed)
+                    .placeholder(R.drawable.shape_base_img_gray_dp5)
+                    .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(mContext.dp2px(5f))))
+                    .error(R.drawable.shape_base_img_gray_dp5)
+                    .into(ivImg)
+        }
     }
 
 }

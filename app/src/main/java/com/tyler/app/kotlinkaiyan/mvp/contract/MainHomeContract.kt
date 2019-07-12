@@ -20,6 +20,8 @@ class MainHomeContract {
         fun showError(msg: String)
 
         fun loadMoreFail()
+
+        fun loadMoreEnd()
     }
 
     interface Presenter : IPresenter<View> {

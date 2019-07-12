@@ -14,7 +14,7 @@ import com.tyler.app.kotlinkaiyan.net.ExceptionHandler
 class MainHomePresenter : BasePresenter<MainHomeContract.View>(), MainHomeContract.Presenter {
 
     private var mBannerHomeBean: HomeBean? = null
-    private var mNextPageUrl = ""
+    private var mNextUrl: String? = null
     private val mHomeModel: MainHomeModel by lazy { MainHomeModel() }
 
     /**
@@ -22,19 +22,20 @@ class MainHomePresenter : BasePresenter<MainHomeContract.View>(), MainHomeContra
      */
     override fun requestFirstData(num: Int) {
         checkViewAttach()
+        mView?.showLoadding()
         val disposable = mHomeModel.requestDailyFirstData(num)
                 .flatMap { homeBean ->
                     val itemList = homeBean.issueList[0].itemList
                     itemList.filter { item -> item.type == "banner2" || item.type == "horizontalScrollCard" }
                             .forEach { item -> itemList.remove(item) }
                     mBannerHomeBean = homeBean
-                    mNextPageUrl = homeBean.nextPageUrl
+                    mNextUrl = homeBean.nextPageUrl
                     mHomeModel.requestDailyNextData(homeBean.nextPageUrl)
                 }
                 .subscribe({ homeBean ->
                     mView?.apply {
                         dismissLoadding()
-                        mNextPageUrl = homeBean.nextPageUrl
+                        mNextUrl = homeBean.nextPageUrl
                         val itemList = homeBean.issueList[0].itemList
                         itemList.filter { item -> item.type != "video" }
                                 .forEach { item -> itemList.remove(item) }
@@ -52,25 +53,31 @@ class MainHomePresenter : BasePresenter<MainHomeContract.View>(), MainHomeContra
 
     override fun requestNextData() {
         checkViewAttach()
-        val disposable = mNextPageUrl.let {
-            mHomeModel.requestDailyNextData(it)
-                    .subscribe({ homeBeam ->
-                        mView?.apply {
-                            val itemList = homeBeam.issueList[0].itemList
-                            itemList.filter { item -> item.type != "video" }
-                                    .forEach { item -> itemList.remove(item) }
-                            mNextPageUrl = homeBeam.nextPageUrl
-                            setNextData(itemList)
-                        }
-                    }, {
-                        mView?.apply {
-                            dismissLoadding()
-                            loadMoreFail()
-                            showError(ExceptionHandler.handException(it))
-                        }
-                    })
-        }
+        if (mNextUrl.isNullOrEmpty()) {
+            mView?.loadMoreEnd()
+        } else {
+            val disposable = mNextUrl?.let {
+                mHomeModel.requestDailyNextData(it)
+                        .subscribe({ homeBeam ->
+                            mView?.apply {
+                                val itemList = homeBeam.issueList[0].itemList
+                                itemList.filter { item -> item.type != "video" }
+                                        .forEach { item -> itemList.remove(item) }
+                                mNextUrl = homeBeam.nextPageUrl
+                                setNextData(itemList)
+                            }
+                        }, {
+                            mView?.apply {
+                                dismissLoadding()
+                                loadMoreFail()
+                                showError(ExceptionHandler.handException(it))
+                            }
+                        })
+            }
 
-        addSubscription(disposable)
+            if (disposable != null) {
+                addSubscription(disposable)
+            }
+        }
     }
 }

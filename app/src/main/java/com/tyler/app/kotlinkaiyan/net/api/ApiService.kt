@@ -1,5 +1,6 @@
 package com.tyler.app.kotlinkaiyan.net.api
 
+import com.tyler.app.kotlinkaiyan.mvp.model.bean.CategoryBean
 import com.tyler.app.kotlinkaiyan.mvp.model.bean.HomeBean
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -45,4 +46,16 @@ interface ApiService {
      */
     @GET("v3/queries/hot")
     fun getHotSearchWords(): Observable<ArrayList<String>>
+
+    /**
+     * 关注(推荐) 数据
+     */
+    @GET("v4/tabs/follow")
+    fun getFollowListData(): Observable<HomeBean.Issue>
+
+    /**
+     * 分类
+     */
+    @GET("v4/categories")
+    fun getCateGory(): Observable<ArrayList<CategoryBean>>
 }

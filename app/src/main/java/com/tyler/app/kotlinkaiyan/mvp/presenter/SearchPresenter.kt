@@ -1,6 +1,5 @@
 package com.tyler.app.kotlinkaiyan.mvp.presenter
 
-import com.orhanobut.logger.Logger
 import com.tyler.app.kotlinkaiyan.base.BasePresenter
 import com.tyler.app.kotlinkaiyan.mvp.contract.SearchContract
 import com.tyler.app.kotlinkaiyan.mvp.model.SearchModel
@@ -39,41 +38,42 @@ class SearchPresenter : BasePresenter<SearchContract.View>(), SearchContract.Pre
     override fun requestHotSearchData() {
         checkViewAttach()
         addSubscription(
-            disposable = mSearchModel.requestHotSearchWords()
-                .subscribe({
-                    mView?.apply {
-                        dismissLoadding()
-                        setHotSearchData(it)
-                    }
-                }, {
-                    mView?.apply {
-                        dismissLoadding()
-                        showError(ExceptionHandler.handException(it))
-                    }
-                })
+                disposable = mSearchModel.requestHotSearchWords()
+                        .subscribe({
+                            mView?.apply {
+                                dismissLoadding()
+                                setHotSearchData(it)
+                            }
+                        }, {
+                            mView?.apply {
+                                dismissLoadding()
+                                showError(ExceptionHandler.handException(it))
+                            }
+                        })
         )
     }
 
     override fun requestSearchResultData(tag: String) {
         checkViewAttach()
+        mView?.showLoadding()
         addHistorySearchData(tag)
         val disposable = mSearchModel.requestSearchResultData(tag)
-            ?.subscribe({
-                mView?.apply {
-                    dismissLoadding()
-                    mNextUrl = it.nextPageUrl
-                    val itemList = it.itemList
-                    itemList.filter { item -> item.type != "video" }
-                        .forEach { item -> itemList.remove(item) }
-                    setSearchResultData(itemList, it.total)
-                }
-            }, {
-                mView?.apply {
-                    dismissLoadding()
-                    showError(ExceptionHandler.handException(it))
-                    loadMoreFail()
-                }
-            })
+                ?.subscribe({
+                    mView?.apply {
+                        dismissLoadding()
+                        mNextUrl = it.nextPageUrl
+                        val itemList = it.itemList
+                        itemList.filter { item -> item.type != "video" }
+                                .forEach { item -> itemList.remove(item) }
+                        setSearchResultData(itemList, it.total)
+                    }
+                }, {
+                    mView?.apply {
+                        dismissLoadding()
+                        showError(ExceptionHandler.handException(it))
+                        loadMoreFail()
+                    }
+                })
         if (disposable != null) {
             addSubscription(disposable)
         }
@@ -86,23 +86,22 @@ class SearchPresenter : BasePresenter<SearchContract.View>(), SearchContract.Pre
         } else {
             val disposable = mNextUrl?.let {
                 mSearchModel.requestMoreSearchResultData(it)
-                    ?.subscribe({
-                        mView?.apply {
-                            Logger.d("nextUrl : $mNextUrl")
-                            dismissLoadding()
-                            mNextUrl = it.nextPageUrl
-                            val itemList = it.itemList
-                            itemList.filter { item -> item.type != "video" }
-                                .forEach { item -> itemList.remove(item) }
-                            setMoreResultData(itemList)
-                        }
-                    }, {
-                        mView?.apply {
-                            dismissLoadding()
-                            showError(ExceptionHandler.handException(it))
-                            loadMoreFail()
-                        }
-                    })
+                        ?.subscribe({
+                            mView?.apply {
+                                dismissLoadding()
+                                mNextUrl = it.nextPageUrl
+                                val itemList = it.itemList
+                                itemList.filter { item -> item.type != "video" }
+                                        .forEach { item -> itemList.remove(item) }
+                                setMoreResultData(itemList)
+                            }
+                        }, {
+                            mView?.apply {
+                                dismissLoadding()
+                                showError(ExceptionHandler.handException(it))
+                                loadMoreFail()
+                            }
+                        })
             }
             if (disposable != null) {
                 addSubscription(disposable)
