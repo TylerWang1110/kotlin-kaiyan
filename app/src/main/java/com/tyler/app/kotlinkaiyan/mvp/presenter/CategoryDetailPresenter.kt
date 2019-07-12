@@ -32,7 +32,7 @@ class CategoryDetailPresenter : BasePresenter<CategoryDetailContract.View>(), Ca
         }
     }
 
-    override fun requestMoreVideoData(nextUrl: String) {
+    override fun requestMoreVideoData() {
         checkViewAttach()
         mView?.showLoadding()
         if (mNextUrl.isNullOrEmpty()) {

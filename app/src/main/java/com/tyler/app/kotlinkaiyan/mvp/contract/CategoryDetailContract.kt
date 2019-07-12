@@ -28,7 +28,7 @@ class CategoryDetailContract {
 
         fun requestVideoListData(categoryId: Int)
 
-        fun requestMoreVideoData(nextUrl: String)
+        fun requestMoreVideoData()
     }
 
 

@@ -4,6 +4,7 @@ import com.tyler.app.kotlinkaiyan.BaseApp
 import com.tyler.app.kotlinkaiyan.net.api.ApiService
 import com.tyler.app.kotlinkaiyan.net.api.UrlConfig
 import okhttp3.Cache
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -40,12 +41,25 @@ object RetrofitManager {
         val cache = Cache(cacheFile, 1024 * 1024 * 50) //50Mb 缓存的大小
         return OkHttpClient.Builder()
             //可设置公共参数
-//            .addInterceptor(addQueryParameterInterceptor())
+            .addInterceptor(addQueryParameterInterceptor())
             .addInterceptor(LogInterceptor())//日志
             .cache(cache)
             .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
             .readTimeout(TIME_OUT, TimeUnit.SECONDS)
             .writeTimeout(TIME_OUT, TimeUnit.SECONDS)
             .build()
+    }
+
+    /**
+     * 设置公共参数
+     */
+    private fun addQueryParameterInterceptor(): Interceptor? {
+        return Interceptor { chain ->
+            val request = chain.request()
+            val url = request.url().newBuilder()
+                .addQueryParameter("udid", "d2807c895f0348a180148c9dfa6f2feeac0781b5")
+                .build()
+            chain.proceed(request.newBuilder().url(url).build())
+        }
     }
 }

@@ -43,7 +43,11 @@ class CategoryFragment : BaseFragment(), CategoryContract.View {
         mh_category.setColorSchemeResources(R.color.text_color_black)
         mAdapter.setOnItemClickListener { adapter, view, position ->
             val intent = Intent(activity, CategoryDetailActivity::class.java)
-            intent.putExtra(CategoryDetailActivity.BUNDLE_CATEGORY_ID, (adapter.data[position] as CategoryBean).id)
+            val categoryBean = adapter.data[position] as CategoryBean
+            intent.putExtra(CategoryDetailActivity.BUNDLE_CATEGORY_ID, categoryBean.id)
+            intent.putExtra(CategoryDetailActivity.BUNDLE_NAME, categoryBean.name)
+            intent.putExtra(CategoryDetailActivity.BUNDLE_DESCRIPTION, categoryBean.description)
+            intent.putExtra(CategoryDetailActivity.BUNDLE_HEADER_IMG, categoryBean.headerImage)
             startActivity(intent)
         }
         mAdapter.setEnableLoadMore(false)
