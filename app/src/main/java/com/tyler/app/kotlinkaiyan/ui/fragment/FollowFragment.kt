@@ -33,6 +33,10 @@ class FollowFragment : BaseFragment(), FollowContract.View {
         return R.layout.fragment_follow_list
     }
 
+    override fun initData() {
+
+    }
+
     override fun initView() {
         mPresenter.attachView(this)
         mh_follow_list.setColorSchemeResources(R.color.text_color_black)
@@ -41,12 +45,12 @@ class FollowFragment : BaseFragment(), FollowContract.View {
         }
         rv_follow_list.layoutManager = mLayoutManager
         rv_follow_list.addItemDecoration(
-            RecyclerViewDivider(
-                context,
-                LinearLayoutManager.HORIZONTAL,
-                1,
-                resources.getColor(R.color.list_dividingLine)
-            )
+                RecyclerViewDivider(
+                        context,
+                        LinearLayoutManager.HORIZONTAL,
+                        1,
+                        resources.getColor(R.color.list_dividingLine)
+                )
         )
         mAdapter.setPreLoadNumber(1)
         mAdapter.setOnItemClickListener { adapter, view, position ->

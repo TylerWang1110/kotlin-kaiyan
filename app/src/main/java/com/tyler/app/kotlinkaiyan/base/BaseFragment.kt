@@ -33,10 +33,12 @@ abstract class BaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mIsViewCreate = true
+        initData()
         initView()
         lazyLoad()
         mRootStatusView?.setOnClickListener { reLoad() }
     }
+
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
@@ -61,6 +63,11 @@ abstract class BaseFragment : Fragment() {
      * 布局
      */
     abstract fun layoutId(): Int
+
+    /**
+     * 初始化数据相关
+     */
+    abstract fun initData()
 
     /**
      * 初始化view相关

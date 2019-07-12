@@ -57,5 +57,18 @@ interface ApiService {
      * 分类
      */
     @GET("v4/categories")
-    fun getCateGory(): Observable<ArrayList<CategoryBean>>
+    fun getCategory(): Observable<ArrayList<CategoryBean>>
+
+    /**
+     * 分类详情(起始)
+     */
+    @GET("v4/categories/videoList?")
+    fun getCategoryDetail(@Query("id") id: Int): Observable<HomeBean.Issue>
+
+    /**
+     * 排行
+     * @param strategy weekly-周 monthly-月 historical-历史总排行
+     */
+    @GET("v4/rankList/videos?")
+    fun getVideoRankList(@Query("strategy") strategy: String): Observable<HomeBean.Issue>
 }

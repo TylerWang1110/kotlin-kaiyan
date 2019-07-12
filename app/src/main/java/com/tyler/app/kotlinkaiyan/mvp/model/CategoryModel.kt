@@ -13,6 +13,6 @@ import io.reactivex.Observable
 class CategoryModel {
 
     fun requestCategoryData(): Observable<ArrayList<CategoryBean>> {
-        return RetrofitManager.service.getCateGory().compose(SchedulerUtils.ioToMain())
+        return RetrofitManager.service.getCategory().compose(SchedulerUtils.ioToMain())
     }
 }

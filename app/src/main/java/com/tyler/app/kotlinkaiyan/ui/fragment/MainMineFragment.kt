@@ -21,6 +21,10 @@ class MainMineFragment : BaseFragment() {
         return R.layout.fragment_main_mine
     }
 
+    override fun initData() {
+
+    }
+
     override fun initView() {
     }
 

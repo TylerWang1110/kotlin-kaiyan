@@ -19,18 +19,18 @@ class FollowPresenter : BasePresenter<FollowContract.View>(), FollowContract.Pre
         checkViewAttach()
         mView?.showLoadding()
         val disposable = mFollowModel.requestFollowListData().subscribe(
-            {
-                mNextUrl = it.nextPageUrl
-                mView?.apply {
-                    mView?.dismissLoadding()
-                    mView?.setFollowListData(it)
-                }
-            }, {
-                mView?.apply {
-                    mView?.dismissLoadding()
-                    mView?.showError(ExceptionHandler.handException(it))
-                }
-            })
+                {
+                    mNextUrl = it.nextPageUrl
+                    mView?.apply {
+                        mView?.dismissLoadding()
+                        mView?.setFollowListData(it)
+                    }
+                }, {
+            mView?.apply {
+                mView?.dismissLoadding()
+                mView?.showError(ExceptionHandler.handException(it))
+            }
+        })
         addSubscription(disposable)
     }
 
@@ -41,14 +41,15 @@ class FollowPresenter : BasePresenter<FollowContract.View>(), FollowContract.Pre
         } else {
             val disposable = mNextUrl?.let {
                 mFollowModel.requestMoreFollowData(it).subscribe(
-                    {
-                        mView?.dismissLoadding()
-                        mNextUrl = it.nextPageUrl
-                        mView?.setMoreFollowListData(it)
-                    }, {
-                        mView?.dismissLoadding()
-                        mView?.showError(ExceptionHandler.handException(it))
-                    })
+                        {
+                            mView?.dismissLoadding()
+                            mNextUrl = it.nextPageUrl
+                            mView?.setMoreFollowListData(it)
+                        }, {
+                    mView?.dismissLoadding()
+                    mView?.loadMoreFail()
+                    mView?.showError(ExceptionHandler.handException(it))
+                })
             }
             if (disposable != null) {
                 addSubscription(disposable)

@@ -1,5 +1,6 @@
 package com.tyler.app.kotlinkaiyan.mvp.presenter
 
+import com.orhanobut.logger.Logger
 import com.tyler.app.kotlinkaiyan.base.BasePresenter
 import com.tyler.app.kotlinkaiyan.mvp.contract.SearchContract
 import com.tyler.app.kotlinkaiyan.mvp.model.SearchModel
@@ -54,6 +55,8 @@ class SearchPresenter : BasePresenter<SearchContract.View>(), SearchContract.Pre
     }
 
     override fun requestSearchResultData(tag: String) {
+        //请求第一页数据时清空nextUrl
+        mNextUrl = ""
         checkViewAttach()
         mView?.showLoadding()
         addHistorySearchData(tag)
@@ -81,6 +84,7 @@ class SearchPresenter : BasePresenter<SearchContract.View>(), SearchContract.Pre
 
     override fun requestMoreSearchResultData() {
         checkViewAttach()
+        Logger.d("mNextUrl : $mNextUrl")
         if (mNextUrl.isNullOrEmpty()) {
             mView?.loadMoreEnd()
         } else {

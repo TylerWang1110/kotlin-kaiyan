@@ -41,7 +41,7 @@ class SearchActivity : BaseActivity(), SearchContract.View {
 
     private val mLayoutManger: RecyclerView.LayoutManager by lazy {
         LinearLayoutManager(
-            context, LinearLayoutManager.VERTICAL, false
+                context, LinearLayoutManager.VERTICAL, false
         )
     }
 
@@ -109,12 +109,12 @@ class SearchActivity : BaseActivity(), SearchContract.View {
         rv_search_result.adapter = mAdapter
         rv_search_result.layoutManager = mLayoutManger
         rv_search_result.addItemDecoration(
-            RecyclerViewDivider(
-                context,
-                LinearLayoutManager.HORIZONTAL,
-                1,
-                resources.getColor(R.color.list_dividingLine)
-            )
+                RecyclerViewDivider(
+                        context,
+                        LinearLayoutManager.HORIZONTAL,
+                        1,
+                        resources.getColor(R.color.list_dividingLine)
+                )
         )
     }
 
@@ -138,12 +138,14 @@ class SearchActivity : BaseActivity(), SearchContract.View {
         fl_search_et.requestFocus()
         //关闭软件盘
         (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
-            .hideSoftInputFromWindow(et_search.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+                .hideSoftInputFromWindow(et_search.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
         val word = et_search.text.toString().trim()
         if (word != "") {
             //清空列表
             mAdapter?.data?.clear()
             mAdapter?.notifyDataSetChanged()
+            //恢复加载更多
+            mAdapter?.loadMoreComplete()
             mIsShowResult = false
             switchContent()
             mKeyWord = word
@@ -165,7 +167,7 @@ class SearchActivity : BaseActivity(), SearchContract.View {
         tfl_search_history.adapter = object : TagAdapter<String>(historyData) {
             override fun getView(parent: FlowLayout?, position: Int, t: String?): View {
                 val itemView =
-                    layoutInflater.inflate(R.layout.item_search_hot_tag, tfl_search_history, false) as LinearLayout
+                        layoutInflater.inflate(R.layout.item_search_hot_tag, tfl_search_history, false) as LinearLayout
                 itemView.tv_item_search_hot_tag.text = t
                 return itemView
             }
@@ -193,7 +195,7 @@ class SearchActivity : BaseActivity(), SearchContract.View {
         tfl_search_hot.adapter = object : TagAdapter<String>(hotWords) {
             override fun getView(parent: FlowLayout?, position: Int, t: String?): View {
                 val itemView =
-                    layoutInflater.inflate(R.layout.item_search_hot_tag, tfl_search_hot, false) as LinearLayout
+                        layoutInflater.inflate(R.layout.item_search_hot_tag, tfl_search_hot, false) as LinearLayout
                 itemView.tv_item_search_hot_tag.text = t
                 return itemView
             }
@@ -213,7 +215,7 @@ class SearchActivity : BaseActivity(), SearchContract.View {
         Logger.d(TAG + "${itemList.size} ----- $total")
         tv_search_result.text = "-「${mKeyWord}」搜索结果共${total}个 -"
         if (!itemList.isNullOrEmpty()) {
-            mAdapter?.addData(itemList)
+            mAdapter?.setNewData(itemList)
         }
         mIsShowResult = true
         switchContent()

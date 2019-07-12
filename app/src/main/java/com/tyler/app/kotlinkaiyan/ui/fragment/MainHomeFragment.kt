@@ -47,12 +47,16 @@ class MainHomeFragment : BaseFragment(), MainHomeContract.View {
         return R.layout.fragment_main_home
     }
 
+    override fun initData() {
+
+    }
+
     override fun initView() {
         mPresenter.attachView(this)
         //重新设置toolbar高度
         tv_main_home_title.typeface = mTypefaceTitle
         tv_main_home_title.text =
-            DateUtils.formatDate(System.currentTimeMillis(), SimpleDateFormat("- MMM. dd -", Locale.ENGLISH))
+                DateUtils.formatDate(System.currentTimeMillis(), SimpleDateFormat("- MMM. dd -", Locale.ENGLISH))
         mh_main_home.setColorSchemeResources(R.color.text_color_black)
         srl_main_home.setOnRefreshListener {
             mIsRefresh = true
@@ -69,12 +73,12 @@ class MainHomeFragment : BaseFragment(), MainHomeContract.View {
         rv_main_home.adapter = mAdapter
         rv_main_home.layoutManager = mLayoutManger
         rv_main_home.addItemDecoration(
-            RecyclerViewDivider(
-                context,
-                LinearLayoutManager.HORIZONTAL,
-                1,
-                resources.getColor(R.color.list_dividingLine)
-            )
+                RecyclerViewDivider(
+                        context,
+                        LinearLayoutManager.HORIZONTAL,
+                        1,
+                        resources.getColor(R.color.list_dividingLine)
+                )
         )
         rv_main_home.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -84,7 +88,7 @@ class MainHomeFragment : BaseFragment(), MainHomeContract.View {
                     val itemList = mAdapter.data
                     val item = itemList[firstVisibleItemPosition]
                     tv_main_home_title.text =
-                        DateUtils.formatDate(item.data.date, SimpleDateFormat("- MMM. dd -", Locale.ENGLISH))
+                            DateUtils.formatDate(item.data.date, SimpleDateFormat("- MMM. dd -", Locale.ENGLISH))
                 }
             }
         })

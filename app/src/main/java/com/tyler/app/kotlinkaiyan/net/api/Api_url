@@ -8,10 +8,17 @@ http://baobab.kaiyanapp.com/api/v4/video/related?id=xxx
 http://baobab.kaiyanapp.com/api/v4/categories
 
 //获取分类详情List
-http://baobab.kaiyanapp.com/api/v4/categories/videoList?id=xxx&udid=xxx
+http://baobab.kaiyanapp.com/api/v3/videoList?start=0&num=10&id=14&strategy=date
 
 //获取排行榜的 Info
 http://baobab.kaiyanapp.com/api/v4/rankList
+
+//周排行
+http://baobab.kaiyanapp.com/api/v4/rankList/videos?strategy=weekly
+//月排行
+http://baobab.kaiyanapp.com/api/v4/rankList/videos?strategy=monthly
+//历史总排行
+http://baobab.kaiyanapp.com/api/v4/rankList/videos?strategy=historical
 
 //获取搜索信息
 http://baobab.kaiyanapp.com/api/v1/search?&num=10&start=10&query=xxx

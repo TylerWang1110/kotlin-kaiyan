@@ -25,6 +25,10 @@ class MainDiscoveryFragment : BaseFragment() {
         return R.layout.fragment_main_discovery
     }
 
+    override fun initData() {
+
+    }
+
     override fun initView() {
         val fragmentList = arrayListOf<Fragment>()
         fragmentList.add(FollowFragment.getInstance())

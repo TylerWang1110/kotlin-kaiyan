@@ -1,5 +1,6 @@
 package com.tyler.app.kotlinkaiyan.ui.fragment
 
+import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
 import com.tyler.app.kotlinkaiyan.R
 import com.tyler.app.kotlinkaiyan.base.BaseFragment
@@ -7,6 +8,7 @@ import com.tyler.app.kotlinkaiyan.mvp.contract.CategoryContract
 import com.tyler.app.kotlinkaiyan.mvp.model.bean.CategoryBean
 import com.tyler.app.kotlinkaiyan.mvp.presenter.CategoryPresenter
 import com.tyler.app.kotlinkaiyan.showToast
+import com.tyler.app.kotlinkaiyan.ui.activity.CategoryDetailActivity
 import com.tyler.app.kotlinkaiyan.ui.adapter.CategoryListAdapter
 import kotlinx.android.synthetic.main.fragment_category.*
 
@@ -31,12 +33,18 @@ class CategoryFragment : BaseFragment(), CategoryContract.View {
         return R.layout.fragment_category
     }
 
+    override fun initData() {
+
+    }
+
     override fun initView() {
         mPresenter.attachView(this)
         srl_category.setOnRefreshListener { start() }
         mh_category.setColorSchemeResources(R.color.text_color_black)
         mAdapter.setOnItemClickListener { adapter, view, position ->
-
+            val intent = Intent(activity, CategoryDetailActivity::class.java)
+            intent.putExtra(CategoryDetailActivity.BUNDLE_CATEGORY_ID, (adapter.data[position] as CategoryBean).id)
+            startActivity(intent)
         }
         mAdapter.setEnableLoadMore(false)
         rv_category.adapter = mAdapter
