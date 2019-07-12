@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.scwang.smartrefresh.layout.SmartRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/srl_category_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.scwang.smartrefresh.header.MaterialHeader
+        android:id="@+id/mh_category_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.scwang.smartrefresh.header.MaterialHeader>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/abl_category_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="0dp">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentScrim="@color/base_white"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    app:layout_collapseMode="parallax"
+                    app:layout_collapseParallaxMultiplier="0.7">
+
+                    <ImageView
+                        android:id="@+id/iv_category_detail_header"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingTop="@dimen/base_title_bar_height">
+
+                        <TextView
+                            android:id="@+id/tv_category_detail_header_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/base_white"
+                            android:textSize="20dp"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/tv_category_detail_header_description"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="XXXXXXXXXXX"
+                            android:textColor="@color/base_white"
+                            android:textSize="13dp"/>
+
+                        <com.flyco.roundview.RoundTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="4dp"
+                            android:paddingTop="2dp"
+                            android:paddingRight="4dp"
+                            android:paddingBottom="2dp"
+                            android:text="关注"
+                            android:textColor="@color/base_white"
+                            android:textSize="8dp"
+                            app:rv_backgroundColor="@color/transparent"
+                            app:rv_cornerRadius="2dp"
+                            app:rv_isRippleEnable="false"
+                            app:rv_strokeColor="@color/base_white"
+                            app:rv_strokeWidth="1px"/>
+
+                    </LinearLayout>
+                </FrameLayout>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/tb_category_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/base_title_bar_height"
+                    app:contentInsetStart="0dp"
+                    app:layout_collapseMode="pin">
+
+                    <TextView
+                        android:id="@+id/tv_category_detail_title_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textColor="@color/text_color_black"
+                        android:textSize="18dp"
+                        android:textStyle="bold"/>
+
+                </android.support.v7.widget.Toolbar>
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_category_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        </android.support.v7.widget.RecyclerView>
+    </android.support.design.widget.CoordinatorLayout>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>
