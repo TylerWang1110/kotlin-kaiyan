@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:layout_margin="2.5dp">
+
+    <ImageView
+        android:id="@+id/iv_list_category"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/shape_base_img_black_dp5"/>
+
+    <TextView
+        android:id="@+id/tv_list_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="#运动"
+        android:textColor="@color/base_white"
+        android:textSize="13dp"
+        android:textStyle="bold"/>
+</FrameLayout>

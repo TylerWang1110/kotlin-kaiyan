@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="230dp"
+    android:paddingLeft="3dp"
+    android:paddingRight="3dp"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="170dp">
+
+        <ImageView
+            android:id="@+id/iv_vp_item_follow_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/shape_base_img_gray_dp5"/>
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="15dp"
+            android:src="@drawable/ic_daily_label"/>
+
+        <com.flyco.roundview.RoundTextView
+            android:id="@+id/tv_vp_item_follow_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="8dp"
+            android:paddingLeft="3dp"
+            android:paddingTop="2dp"
+            android:paddingRight="3dp"
+            android:paddingBottom="2dp"
+            android:text="XX:XX"
+            android:textColor="@color/base_white"
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            app:rv_backgroundColor="@color/text_color_black"
+            app:rv_cornerRadius="2dp"
+            app:rv_isRippleEnable="false"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        style="@style/MatchWrap.Vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tv_vp_item_follow_title"
+            style="@style/MatchAuto"
+            android:layout_marginBottom="3dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="XXXXXXXXXXXXXXXXXXXXXXXXXX"
+            android:textColor="@color/text_color_black"
+            android:textSize="14dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_vp_item_follow_tags"
+            style="@style/MatchAuto"
+            android:layout_marginTop="3dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="XXXXXXXXXXXXXXXXXXXXXXXXXX"
+            android:textColor="@color/text_color_gray"
+            android:textSize="11dp"/>
+    </LinearLayout>
+</LinearLayout>

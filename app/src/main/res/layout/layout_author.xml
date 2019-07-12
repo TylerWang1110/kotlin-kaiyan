@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchWrap.Horizontal"
+    android:background="@color/base_white"
+    android:gravity="center_vertical"
+    android:padding="10dp">
+
+    <FrameLayout
+        android:layout_width="40dp"
+        android:layout_height="40dp">
+
+        <ImageView
+            android:id="@+id/iv_author_avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/shape_home_list_avatar"/>
+
+        <ImageView
+            android:id="@+id/iv_author_avatar_tag"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_gravity="bottom|right"
+            android:src="@drawable/ic_daily_user_super"/>
+    </FrameLayout>
+
+    <LinearLayout
+        style="@style/AutoWrap.Vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp">
+
+        <TextView
+            android:id="@+id/tv_author_name"
+            style="@style/MatchAuto"
+            android:layout_marginBottom="3dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="XXXXXXXXXXXXXXXXXXXXXXXXXX"
+            android:textColor="@color/text_color_black"
+            android:textSize="14dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_author_description"
+            style="@style/MatchAuto"
+            android:layout_marginTop="3dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="XXXXXXXXXXXXXXXXXXXXXXXXXX"
+            android:textColor="@color/text_color_gray"
+            android:textSize="11dp"/>
+    </LinearLayout>
+
+    <com.flyco.roundview.RoundTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="4dp"
+        android:paddingTop="2dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="2dp"
+        android:text="关注"
+        android:textColor="@color/text_color_black"
+        android:textSize="8dp"
+        app:rv_backgroundColor="@color/base_white"
+        app:rv_cornerRadius="2dp"
+        app:rv_isRippleEnable="false"
+        app:rv_strokeColor="@color/text_color_black"
+        app:rv_strokeWidth="1px"/>
+</LinearLayout>

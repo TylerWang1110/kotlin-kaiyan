@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+
+    <include layout="@layout/layout_author"/>
+
+    <android.support.v4.view.ViewPager
+            android:id="@+id/vp_item_list_follow"
+            android:layout_width="match_parent"
+            android:paddingLeft="15dp"
+            android:clipToPadding="false"
+            android:paddingRight="15dp"
+            android:layout_height="230dp">
+
+    </android.support.v4.view.ViewPager>
+</LinearLayout>
