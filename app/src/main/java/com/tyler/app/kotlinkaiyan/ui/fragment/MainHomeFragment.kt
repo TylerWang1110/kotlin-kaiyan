@@ -13,6 +13,7 @@ import com.tyler.app.kotlinkaiyan.mvp.model.bean.HomeBean
 import com.tyler.app.kotlinkaiyan.mvp.presenter.MainHomePresenter
 import com.tyler.app.kotlinkaiyan.showToast
 import com.tyler.app.kotlinkaiyan.ui.activity.SearchActivity
+import com.tyler.app.kotlinkaiyan.ui.activity.VideoDetailActivity
 import com.tyler.app.kotlinkaiyan.ui.adapter.HomeListAdapter
 import com.tyler.app.kotlinkaiyan.util.DateUtils
 import com.tyler.app.kotlinkaiyan.view.RecyclerViewDivider
@@ -56,7 +57,7 @@ class MainHomeFragment : BaseFragment(), MainHomeContract.View {
         //重新设置toolbar高度
         tv_main_home_title.typeface = mTypefaceTitle
         tv_main_home_title.text =
-                DateUtils.formatDate(System.currentTimeMillis(), SimpleDateFormat("- MMM. dd -", Locale.ENGLISH))
+            DateUtils.formatDate(System.currentTimeMillis(), SimpleDateFormat("- MMM. dd -", Locale.ENGLISH))
         mh_main_home.setColorSchemeResources(R.color.text_color_black)
         srl_main_home.setOnRefreshListener {
             mIsRefresh = true
@@ -64,7 +65,10 @@ class MainHomeFragment : BaseFragment(), MainHomeContract.View {
         }
         mAdapter.setPreLoadNumber(2)
         mAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
-            showToast(position.toString())
+            val item: HomeBean.Issue.Item = adapter.getItem(position) as HomeBean.Issue.Item
+            val intent = Intent(context, VideoDetailActivity::class.java)
+            intent.putExtra(VideoDetailActivity.BUNDLE_VIDEO_DATA, item.data)
+            startActivity(intent)
         }
         mAdapter.setOnLoadMoreListener({
             mIsRefresh = false
@@ -73,12 +77,12 @@ class MainHomeFragment : BaseFragment(), MainHomeContract.View {
         rv_main_home.adapter = mAdapter
         rv_main_home.layoutManager = mLayoutManger
         rv_main_home.addItemDecoration(
-                RecyclerViewDivider(
-                        context,
-                        LinearLayoutManager.HORIZONTAL,
-                        1,
-                        resources.getColor(R.color.list_dividingLine)
-                )
+            RecyclerViewDivider(
+                context,
+                LinearLayoutManager.HORIZONTAL,
+                1,
+                resources.getColor(R.color.list_dividingLine)
+            )
         )
         rv_main_home.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -88,7 +92,7 @@ class MainHomeFragment : BaseFragment(), MainHomeContract.View {
                     val itemList = mAdapter.data
                     val item = itemList[firstVisibleItemPosition]
                     tv_main_home_title.text =
-                            DateUtils.formatDate(item.data.date, SimpleDateFormat("- MMM. dd -", Locale.ENGLISH))
+                        DateUtils.formatDate(item.data.date, SimpleDateFormat("- MMM. dd -", Locale.ENGLISH))
                 }
             }
         })

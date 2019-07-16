@@ -1,5 +1,6 @@
 package com.tyler.app.kotlinkaiyan.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.tyler.app.kotlinkaiyan.R
@@ -8,6 +9,7 @@ import com.tyler.app.kotlinkaiyan.mvp.contract.RankListContract
 import com.tyler.app.kotlinkaiyan.mvp.model.bean.HomeBean
 import com.tyler.app.kotlinkaiyan.mvp.presenter.RankListPresenter
 import com.tyler.app.kotlinkaiyan.showToast
+import com.tyler.app.kotlinkaiyan.ui.activity.VideoDetailActivity
 import com.tyler.app.kotlinkaiyan.ui.adapter.SearchResultListAdapter
 import com.tyler.app.kotlinkaiyan.view.RecyclerViewDivider
 import kotlinx.android.synthetic.main.fragment_rank_list.*
@@ -55,17 +57,20 @@ class RankListFragment : BaseFragment(), RankListContract.View {
         mh_rank_list.setColorSchemeResources(R.color.text_color_black)
         rv_rank_list.layoutManager = mLayoutManager
         mAdapter.setOnItemClickListener { adapter, view, position ->
-
+            val item: HomeBean.Issue.Item = adapter.getItem(position) as HomeBean.Issue.Item
+            val intent = Intent(context, VideoDetailActivity::class.java)
+            intent.putExtra(VideoDetailActivity.BUNDLE_VIDEO_DATA, item.data)
+            startActivity(intent)
         }
         mAdapter.setEnableLoadMore(false)
         rv_rank_list.adapter = mAdapter
         rv_rank_list.addItemDecoration(
-                RecyclerViewDivider(
-                        context,
-                        LinearLayoutManager.HORIZONTAL,
-                        1,
-                        resources.getColor(R.color.list_dividingLine)
-                )
+            RecyclerViewDivider(
+                context,
+                LinearLayoutManager.HORIZONTAL,
+                1,
+                resources.getColor(R.color.list_dividingLine)
+            )
         )
     }
 

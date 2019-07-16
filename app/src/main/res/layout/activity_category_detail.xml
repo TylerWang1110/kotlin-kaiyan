@@ -17,6 +17,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_category_detail_bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"/>
+
+            <com.github.mmin18.widget.RealtimeBlurView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#CCFFFFFF"/>
+        </FrameLayout>
+
         <android.support.design.widget.AppBarLayout
             android:id="@+id/abl_category_detail"
             android:layout_width="match_parent"
@@ -26,8 +42,13 @@
             <android.support.design.widget.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:contentScrim="@color/base_white"
+                app:contentScrim="#CCFFFFFF"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+                <com.github.mmin18.widget.RealtimeBlurView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#CCFFFFFF"/>
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -102,6 +123,7 @@
                         android:textStyle="bold"/>
 
                 </android.support.v7.widget.Toolbar>
+
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
 

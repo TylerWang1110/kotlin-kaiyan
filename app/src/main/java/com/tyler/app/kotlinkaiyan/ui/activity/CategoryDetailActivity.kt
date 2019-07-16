@@ -1,5 +1,6 @@
 package com.tyler.app.kotlinkaiyan.ui.activity
 
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import com.tyler.app.kotlinkaiyan.BaseApp.Companion.context
 import com.tyler.app.kotlinkaiyan.GlideApp
@@ -9,10 +10,11 @@ import com.tyler.app.kotlinkaiyan.mvp.contract.CategoryDetailContract
 import com.tyler.app.kotlinkaiyan.mvp.model.bean.HomeBean
 import com.tyler.app.kotlinkaiyan.mvp.presenter.CategoryDetailPresenter
 import com.tyler.app.kotlinkaiyan.showToast
-import com.tyler.app.kotlinkaiyan.ui.adapter.SearchResultListAdapter
+import com.tyler.app.kotlinkaiyan.ui.adapter.CategoryDetailListAdapter
 import com.tyler.app.kotlinkaiyan.util.StatusBarUtils
 import com.tyler.app.kotlinkaiyan.view.RecyclerViewDivider
 import kotlinx.android.synthetic.main.activity_category_detail.*
+
 
 /**
  * @创建者  Tyler Wang.
@@ -29,7 +31,7 @@ class CategoryDetailActivity : BaseActivity(), CategoryDetailContract.View {
     }
 
     private val mPresenter by lazy { CategoryDetailPresenter() }
-    private val mAdapter by lazy { SearchResultListAdapter() }
+    private val mAdapter by lazy { CategoryDetailListAdapter() }
     private val mLayoutManager by lazy { LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false) }
 
     private var mCategoryId = 0
@@ -38,7 +40,7 @@ class CategoryDetailActivity : BaseActivity(), CategoryDetailContract.View {
     private var mHeaderImg = ""
 
     override fun layoutId(): Int {
-        return R.layout.activity_category_detail
+        return com.tyler.app.kotlinkaiyan.R.layout.activity_category_detail
     }
 
     override fun initData() {
@@ -52,7 +54,7 @@ class CategoryDetailActivity : BaseActivity(), CategoryDetailContract.View {
         mPresenter.attachView(this)
         //设置状态栏透明
         StatusBarUtils.darkMode(this)
-//        StatusBarUtils.setPaddingSmart(this, srl_category_detail)
+        StatusBarUtils.setPaddingSmart(this, tb_category_detail)
         //设置头部
         tv_category_detail_title_name.text = mName
         tv_category_detail_header_name.text = mName
@@ -61,13 +63,20 @@ class CategoryDetailActivity : BaseActivity(), CategoryDetailContract.View {
             .load(mHeaderImg)
             .into(iv_category_detail_header)
 
+        GlideApp.with(mActivity)
+            .load(mHeaderImg)
+            .into(iv_category_detail_bg)
+
         srl_category_detail.setOnRefreshListener { start() }
-        mh_category_detail.setColorSchemeResources(R.color.text_color_black)
+        mh_category_detail.setColorSchemeResources(com.tyler.app.kotlinkaiyan.R.color.text_color_black)
         mAdapter.setOnLoadMoreListener({
             mPresenter.requestMoreVideoData()
         }, rv_category_detail)
         mAdapter.setOnItemClickListener { adapter, view, position ->
-
+            val item: HomeBean.Issue.Item = adapter.getItem(position) as HomeBean.Issue.Item
+            val intent = Intent(context, VideoDetailActivity::class.java)
+            intent.putExtra(VideoDetailActivity.BUNDLE_VIDEO_DATA, item.data)
+            startActivity(intent)
         }
         rv_category_detail.adapter = mAdapter
         rv_category_detail.layoutManager = mLayoutManager
@@ -76,7 +85,7 @@ class CategoryDetailActivity : BaseActivity(), CategoryDetailContract.View {
                 context,
                 LinearLayoutManager.HORIZONTAL,
                 1,
-                resources.getColor(R.color.list_dividingLine)
+                resources.getColor(R.color.text_color_black)
             )
         )
     }

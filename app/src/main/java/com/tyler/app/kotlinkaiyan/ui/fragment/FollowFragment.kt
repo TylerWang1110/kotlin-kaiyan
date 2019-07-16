@@ -1,6 +1,6 @@
 package com.tyler.app.kotlinkaiyan.ui.fragment
 
-import android.support.v4.view.ViewPager
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import com.tyler.app.kotlinkaiyan.R
 import com.tyler.app.kotlinkaiyan.base.BaseFragment
@@ -8,6 +8,7 @@ import com.tyler.app.kotlinkaiyan.mvp.contract.FollowContract
 import com.tyler.app.kotlinkaiyan.mvp.model.bean.HomeBean
 import com.tyler.app.kotlinkaiyan.mvp.presenter.FollowPresenter
 import com.tyler.app.kotlinkaiyan.showToast
+import com.tyler.app.kotlinkaiyan.ui.activity.VideoDetailActivity
 import com.tyler.app.kotlinkaiyan.ui.adapter.FollowListAdapter
 import com.tyler.app.kotlinkaiyan.view.RecyclerViewDivider
 import kotlinx.android.synthetic.main.fragment_follow_list.*
@@ -45,12 +46,12 @@ class FollowFragment : BaseFragment(), FollowContract.View {
         }
         rv_follow_list.layoutManager = mLayoutManager
         rv_follow_list.addItemDecoration(
-                RecyclerViewDivider(
-                        context,
-                        LinearLayoutManager.HORIZONTAL,
-                        1,
-                        resources.getColor(R.color.list_dividingLine)
-                )
+            RecyclerViewDivider(
+                context,
+                LinearLayoutManager.HORIZONTAL,
+                1,
+                resources.getColor(R.color.list_dividingLine)
+            )
         )
         mAdapter.setPreLoadNumber(1)
         mAdapter.setOnItemClickListener { adapter, view, position ->
@@ -60,7 +61,12 @@ class FollowFragment : BaseFragment(), FollowContract.View {
         mAdapter.setOnItemChildClickListener { adapter, view, position ->
             when (view.id) {
                 //跳转视频底层
-                R.id.vp_item_list_follow -> showToast(position.toString() + " --- " + (view as ViewPager).currentItem)
+                R.id.vp_item_list_follow -> {
+                    val item: HomeBean.Issue.Item = adapter.getItem(position) as HomeBean.Issue.Item
+                    val intent = Intent(context, VideoDetailActivity::class.java)
+                    intent.putExtra(VideoDetailActivity.BUNDLE_VIDEO_DATA, item.data)
+                    startActivity(intent)
+                }
             }
         }
         mAdapter.setOnLoadMoreListener({

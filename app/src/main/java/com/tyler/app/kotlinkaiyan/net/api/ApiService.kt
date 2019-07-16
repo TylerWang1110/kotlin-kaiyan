@@ -71,4 +71,10 @@ interface ApiService {
      */
     @GET("v4/rankList/videos?")
     fun getVideoRankList(@Query("strategy") strategy: String): Observable<HomeBean.Issue>
+
+    /**
+     * 相关视频
+     */
+    @GET("v4/video/related?")
+    fun getRelatedVideo(@Query("id") id: Int): Observable<HomeBean.Issue>
 }

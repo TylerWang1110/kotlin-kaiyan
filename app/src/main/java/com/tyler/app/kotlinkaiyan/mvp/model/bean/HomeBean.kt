@@ -1,5 +1,8 @@
 package com.tyler.app.kotlinkaiyan.mvp.model.bean
 
+import android.os.Parcel
+import android.os.Parcelable
+
 /**
  * @创建者  Tyler Wang.
  * @创建时间  2019/7/5  15:59.
@@ -53,7 +56,35 @@ data class HomeBean(
                 var type: String,
                 var tags: ArrayList<TagData>,
                 var webUrl: WebUrl
-            ) {
+            ) : Parcelable {
+                constructor(parcel: Parcel) : this(
+                    parcel.readByte() != 0.toByte(),
+                    TODO("author"),
+                    parcel.readString(),
+                    parcel.readString(),
+                    TODO("cover"),
+                    parcel.readLong(),
+                    parcel.readString(),
+                    parcel.readString(),
+                    parcel.readString(),
+                    parcel.readInt(),
+                    TODO("header"),
+                    parcel.readInt(),
+                    TODO("itemList"),
+                    TODO("playInfo"),
+                    parcel.readString(),
+                    parcel.readByte() != 0.toByte(),
+                    parcel.readLong(),
+                    parcel.readString(),
+                    parcel.readString(),
+                    parcel.readString(),
+                    parcel.readString(),
+                    parcel.readString(),
+                    TODO("tags"),
+                    TODO("webUrl")
+                ) {
+                }
+
                 data class Author(
                     var description: String,
                     var icon: String,
@@ -102,6 +133,40 @@ data class HomeBean(
                     var forWeibo: String,
                     var raw: String
                 )
+
+                override fun writeToParcel(parcel: Parcel, flags: Int) {
+                    parcel.writeByte(if (ad) 1 else 0)
+                    parcel.writeString(category)
+                    parcel.writeString(dataType)
+                    parcel.writeLong(date)
+                    parcel.writeString(description)
+                    parcel.writeString(descriptionEditor)
+                    parcel.writeString(descriptionPgc)
+                    parcel.writeInt(duration)
+                    parcel.writeInt(id)
+                    parcel.writeString(playUrl)
+                    parcel.writeByte(if (played) 1 else 0)
+                    parcel.writeLong(releaseTime)
+                    parcel.writeString(remark)
+                    parcel.writeString(slogan)
+                    parcel.writeString(title)
+                    parcel.writeString(titlePgc)
+                    parcel.writeString(type)
+                }
+
+                override fun describeContents(): Int {
+                    return 0
+                }
+
+                companion object CREATOR : Parcelable.Creator<Data> {
+                    override fun createFromParcel(parcel: Parcel): Data {
+                        return Data(parcel)
+                    }
+
+                    override fun newArray(size: Int): Array<Data?> {
+                        return arrayOfNulls(size)
+                    }
+                }
             }
         }
     }
